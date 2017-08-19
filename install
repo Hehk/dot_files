@@ -1,6 +1,8 @@
+#!/bin/sh
+
 dir=~/dot_files
 old_dir=~/dot_files/old
-files=".bashrc .vimrc .vim"
+files=".bashrc .vimrc .vim .gitconfig"
 
 printf "Creating $old_dir for backup of any existing dotfiles\n"
 mkdir -p $old_dir
