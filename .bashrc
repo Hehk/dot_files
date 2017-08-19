@@ -50,3 +50,14 @@ function parse_git_dirty {
 }
 
 export PS1="\[\e[35m\]\u\[\e[m\]:\[\e[36m\]\W\[\e[m\]\[\e[31m\]\`parse_git_branch\`\[\e[m\]\\$ "
+
+# ------------------------------------------------------------------------------
+# Simple Aliases
+# ------------------------------------------------------------------------------
+alias ..="cd .."
+alias ll="ls -lhA"
+alias ls="ls -a"
+alias lsg="ls -a | grep"
+alias llg="ls -lhA | grep"
+alias mkdir="mkdir -pv"
+alias reload="source ~/dot_files/.bashrc"
