@@ -8,7 +8,11 @@ function parse_git_branch() {
 	if [ ! "${BRANCH}" == "" ]
 	then
 		STAT=`parse_git_dirty`
-		echo ":${BRANCH}{${STAT}}"
+                if [ ! "${STAT}" == "" ]; then
+                  echo ":${BRANCH}<${STAT}>"
+                else
+		  echo ":${BRANCH}"
+                fi
 	else
 		echo ""
 	fi
