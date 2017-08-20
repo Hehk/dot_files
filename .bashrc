@@ -8,7 +8,7 @@ function parse_git_branch() {
 	if [ ! "${BRANCH}" == "" ]
 	then
 		STAT=`parse_git_dirty`
-		echo "[${BRANCH}${STAT}]"
+		echo ":${BRANCH}{${STAT}}"
 	else
 		echo ""
 	fi
@@ -43,7 +43,7 @@ function parse_git_dirty {
 		bits="!${bits}"
 	fi
 	if [ ! "${bits}" == "" ]; then
-		echo " ${bits}"
+		echo "${bits}"
 	else
 		echo ""
 	fi
@@ -61,3 +61,5 @@ alias lsg="ls -a | grep"
 alias llg="ls -lhA | grep"
 alias mkdir="mkdir -pv"
 alias reload="source ~/dot_files/.bashrc"
+
+alias note="vim -c \"Goyo\""

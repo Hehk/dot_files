@@ -27,7 +27,7 @@ set backspace=indent,eol,start
 
 " Line number 
 set number
-set numberwidth=5
+set numberwidth=6
 
 call plug#begin('~/dot_files/.vim/plugged')
 
@@ -56,11 +56,18 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Comment lines out
 Plug 'tpope/vim-commentary'
 
+" Distraction free typing
+Plug 'junegunn/goyo.vim'
+let g:goyo_width = 100
+
+
 " Section: LANGUAGES PLUGINS
 " --------------------------
 
 " General linting engine
 Plug 'w0rp/ale'
+let g:ale_sign_error = '=>'
+let g:ale_sign_warning = '~>'
 let g:ale_fixers = {
   \ 'javascript': ['eslint']
   \ }
