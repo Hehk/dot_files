@@ -4,18 +4,18 @@
 
 # get current branch in git repo
 function parse_git_branch() {
-	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
-	then
-		STAT=`parse_git_dirty`
-                if [ ! "${STAT}" == "" ]; then
-                  echo ":${BRANCH}<${STAT}>"
-                else
-		  echo ":${BRANCH}"
-                fi
-	else
-		echo ""
-	fi
+  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  PROMPT=""
+  if [ ! "${BRANCH}" == "" ]; then
+    STAT=`parse_git_dirty`
+    if [ ! "${STAT}" == "" ]; then
+      PROMPT=" ${BRANCH}<${STAT}>"
+    else
+      PROMPT=" ${BRANCH}"
+    fi
+  fi
+
+  echo "$PROMPT"
 }
 
 # get current status of git repo
@@ -53,7 +53,16 @@ function parse_git_dirty {
 	fi
 }
 
-export PS1="\[\e[35m\]\u\[\e[m\]:\[\e[36m\]\W\[\e[m\]\[\e[31m\]\`parse_git_branch\`\[\e[m\]\\$ "
+# get current user and hostname info
+function parse_user {
+  if [ $USER == "hehk" ] && [ $HOSTNAME == "Kyles-MacBook-Pro.local" ]; then
+    echo "" 
+  else
+    echo "$HOSTNAME@$USER "
+  fi
+}
+
+export PS1="\[\e[35m\]`parse_user`\[\e[m\]\[\e[36m\]\W\[\e[m\]\[\e[31m\]\`parse_git_branch\`\[\e[m\] \\$ "
 
 # ------------------------------------------------------------------------------
 # Simple Aliases
