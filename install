@@ -2,25 +2,26 @@
 
 dir=~/dot_files
 old_dir=~/dot_files/old
+error_file=~/dot_files/.install_errors
 files=".bashrc .vimrc .vim .gitconfig"
 
 printf "Creating $old_dir for backup of any existing dotfiles\n"
-mkdir -p $old_dir
+mkdir -p $old_dir 2>> $error_file
 printf "...done\n\n"
 
 printf "Changing to the $dir directory\n"
-cd $dir
+cd $dir 2>> $error_file
 printf "...done\n\n"
 
 
 printf "Moving any existing dotfiles from ~ to $olddir\n\n"
 for file in $files; do
 	printf "=> Archiving old $file\n"
-	mv ~/$file $old_dir
+	mv ~/$file $old_dir 2>> $error_file
 	printf "=> Creating sumlink to $file in home directory\n\n"
-	ln -s $dir/$file ~/$file
+	ln -s $dir/$file ~/$file 2>> $error_file
 done
 printf "...done\n"
 
-source ~/.bashrc
-source ~/.vimrc
+source ~/.bashrc 2>> $error_file
+source ~/.vimrc 2>> $error_file
