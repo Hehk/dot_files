@@ -6,10 +6,14 @@ syntax on
 set number	
 set linebreak
 set showbreak=+++
-set textwidth=100
 set showmatch	
 set visualbell
  
+" setting the grey section after 80 characters
+set textwidth=80
+set colorcolumn=+1
+highlight ColorColumn ctermbg=8
+
 set hlsearch
 set smartcase
 set ignorecase	
