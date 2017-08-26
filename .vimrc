@@ -82,7 +82,7 @@ Plug 'elixir-lang/vim-elixir'
 
 " JavaScript
 Plug 'mxw/vim-jsx'
+Plug 'mattn/emmet-vim'
 let g:jsx_ext_required = 0 " Allows jsx reading in js files
 
 call plug#end()
-
