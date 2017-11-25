@@ -3,7 +3,7 @@
 dir=~/dot_files
 old_dir=~/dot_files/old
 error_file=~/dot_files/.install_errors
-files=".bashrc .vimrc .vim .gitconfig"
+files=".bashrc .vimrc .vim .gitconfig .tmux.conf"
 
 printf "Creating $old_dir for backup of any existing dotfiles\n"
 mkdir -p $old_dir 2>> $error_file

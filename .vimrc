@@ -1,5 +1,3 @@
-" Section: General Config
-" -----------------------
 let mapleader = " "
 syntax on
 
@@ -10,7 +8,7 @@ set showmatch
 set visualbell
  
 " setting the grey section after 80 characters
-set textwidth=80
+set textwidth=120
 set colorcolumn=+1
 highlight ColorColumn ctermbg=8
 
@@ -33,6 +31,15 @@ set backspace=indent,eol,start
 set number
 set numberwidth=6
 
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+" Movement
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 call plug#begin('~/dot_files/.vim/plugged')
 
 " Section: Generic Plugins
@@ -42,10 +49,13 @@ call plug#begin('~/dot_files/.vim/plugged')
 Plug 'https://github.com/tpope/vim-pathogen.git'
 Plug 'airblade/vim-gitgutter'
 
+" Tmux
+Plug 'https://github.com/christoomey/vim-tmux-navigator.git'
+
 " NERDTree
 Plug 'https://github.com/scrooloose/nerdtree.git'
 let NERDTreeShowHidden=1
-:map <C-\> :NERDTreeToggle<CR>
+:map <leader>\ :NERDTreeToggle<CR>
 
 " Fuzzy Search
 Plug 'https://github.com/kien/ctrlp.vim.git'
@@ -73,16 +83,35 @@ Plug 'w0rp/ale'
 let g:ale_sign_error = '=>'
 let g:ale_sign_warning = '~>'
 let g:ale_fixers = {
-  \ 'javascript': ['eslint']
+  \ 'javascript': ['prettier']
+  \ }
+let g:ale_liners = {
+  \ 'javascript': ['eslint'],
+  \ 'reason': ['merlin']
   \ }
 nmap <leader>l <Plug>(ale_fix)
 
 " Elixir
 Plug 'elixir-lang/vim-elixir'
 
+" CSS
+Plug 'https://github.com/hail2u/vim-css3-syntax.git'
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+
 " JavaScript
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
+Plug 'styled-components/vim-styled-components'
 let g:jsx_ext_required = 0 " Allows jsx reading in js files
+syntax region jsTemplateString start=+[a-zA-Z)]`+ skip=+\\\(`\|$\)+ end=+`+
+
+" Reason
+Plug 'reasonml-editor/vim-reason'
+let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([120, winwidth('.')])"
+autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
 
 call plug#end()
