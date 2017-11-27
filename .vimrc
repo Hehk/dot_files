@@ -34,6 +34,10 @@ set numberwidth=6
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
+" Italic Comments
+" https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
+highlight Comment cterm=italic
+
 " Movement
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
