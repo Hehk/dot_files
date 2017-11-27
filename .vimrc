@@ -118,4 +118,8 @@ Plug 'reasonml-editor/vim-reason'
 let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([120, winwidth('.')])"
 autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
 
+" Docker
+Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
+
+
 call plug#end()
