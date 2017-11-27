@@ -68,8 +68,8 @@ export PS1="\[\e[35m\]`parse_user`\[\e[m\]\[\e[36m\]\W\[\e[m\]\[\e[31m\]\`parse_
 # Simple Aliases
 # ------------------------------------------------------------------------------
 alias ..="cd .."
-alias ll="ls -lhA --color=auto"
-alias ls="ls -a --color=auto"
+alias ll="ls -lhA"
+alias ls="ls -a"
 alias lsg="ls -a | grep"
 alias llg="ls -lhA | grep"
 alias mkdir="mkdir -pv"
