@@ -63,6 +63,7 @@ let NERDTreeShowHidden=1
 
 " Fuzzy Search
 Plug 'https://github.com/kien/ctrlp.vim.git'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " Bottom Bar
 Plug 'itchyny/lightline.vim'
