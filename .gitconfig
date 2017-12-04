@@ -1,3 +1,6 @@
 [user]
-	name = hehk
-	email = kyle1101000@gmail.com
+  name = hehk
+  email = kyle1101000@gmail.com
+
+[commit]
+  template = ~/dot_files/.gitmessage
