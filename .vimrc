@@ -29,7 +29,7 @@ set backspace=indent,eol,start
 
 " Line number 
 set number
-set numberwidth=6
+set numberwidth=5
 
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -48,6 +48,9 @@ call plug#begin('~/dot_files/.vim/plugged')
 
 " Section: Generic Plugins
 " ------------------------
+
+" Styling
+Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
 
 " Git integration
 Plug 'https://github.com/tpope/vim-pathogen.git'
@@ -124,3 +127,5 @@ Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
 
 call plug#end()
+colorscheme molokai
+highlight clear LineNr

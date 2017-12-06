@@ -4,3 +4,6 @@
 
 [commit]
   template = ~/dot_files/.gitmessage
+
+[core]
+  editor = vim
