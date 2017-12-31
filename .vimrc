@@ -51,6 +51,7 @@ call plug#begin('~/dot_files/.vim/plugged')
 
 " Styling
 Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
+Plug 'https://github.com/dunckr/vim-monokai-soda'
 
 " Git integration
 Plug 'https://github.com/tpope/vim-pathogen.git'
@@ -127,5 +128,5 @@ Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
 
 call plug#end()
-colorscheme molokai
+colorscheme monokai-soda
 highlight clear LineNr
