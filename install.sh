@@ -29,3 +29,6 @@ source ~/.vimrc 2>> $error_file
 # Add terminal config for italics
 tic "$dir/xterm-256color-italic.terminfo"
 tic "$dir/tmux-256color-italic.terminfo"
+
+# Add global gitignore
+git config --global core.excludesfile $dir/.gitignore_global

@@ -1,0 +1,2 @@
+# makes git ignore swp and swo files
+.*.sw*
