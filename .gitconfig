@@ -7,4 +7,4 @@
 
 [core]
   editor = vim
-	excludesfile = /Users/hehk/dot_files/.gitignore_global
+	excludesfile = /root/dot_files/.gitignore_global

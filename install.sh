@@ -32,3 +32,16 @@ tic "$dir/tmux-256color-italic.terminfo"
 
 # Add global gitignore
 git config --global core.excludesfile $dir/.gitignore_global
+
+if grep -q Ubuntu /etc/*release; then
+  printf "=> Running custom commands for ubuntu"
+
+  # updates to repository that has vim 8
+  add-apt-repository ppa:jonathonf/vim
+  apt update
+  apt install -y vim
+
+  # add repository with node 8
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+  apt-get install -y nodejs
+fi
