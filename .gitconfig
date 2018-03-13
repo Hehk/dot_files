@@ -1,5 +1,5 @@
 [user]
-  name = hehk
+	name = Kyle Henderson
   email = kyle1101000@gmail.com
 
 [commit]
@@ -7,4 +7,4 @@
 
 [core]
   editor = vim
-	excludesfile = /root/dot_files/.gitignore_global
+	excludesfile = /Users/hehk/dot_files/.gitignore_global

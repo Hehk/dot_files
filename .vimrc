@@ -126,6 +126,9 @@ autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
+" Idris
+Plug 'https://github.com/idris-hackers/idris-vim.git'
+
 
 call plug#end()
 colorscheme monokai-soda
