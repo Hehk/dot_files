@@ -45,3 +45,8 @@ if grep -q Ubuntu /etc/*release; then
   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   apt-get install -y nodejs
 fi
+
+# Running OS specific config
+if uname -s | grep -q Darwin; then
+  bash ./install-mac.sh
+fi
