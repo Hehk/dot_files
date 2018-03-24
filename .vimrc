@@ -79,10 +79,8 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Comment lines out
 Plug 'tpope/vim-commentary'
 
-" Distraction free typing
-Plug 'junegunn/goyo.vim'
-let g:goyo_width = 100
-
+" Tab Completion
+Plug 'ervandew/supertab'
 
 " Section: LANGUAGES PLUGINS
 " --------------------------
@@ -126,6 +124,9 @@ autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
+" TypeScript
+Plug 'https://github.com/leafgarland/typescript-vim.git'
+Plug 'https://github.com/Quramy/tsuquyomi.git'
 
 call plug#end()
 colorscheme monokai-soda
