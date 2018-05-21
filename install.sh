@@ -13,7 +13,6 @@ printf "Changing to the $dir directory\n"
 cd $dir 2>> $error_file
 printf "...done\n\n"
 
-
 printf "Moving any existing dotfiles from ~ to $olddir\n\n"
 for file in $files; do
 	printf "=> Archiving old $file\n"
@@ -25,10 +24,6 @@ printf "...done\n"
 
 source ~/.bashrc 2>> $error_file
 source ~/.vimrc 2>> $error_file
-
-# Add terminal config for italics
-tic "$dir/xterm-256color-italic.terminfo"
-tic "$dir/tmux-256color-italic.terminfo"
 
 # Add global gitignore
 git config --global core.excludesfile $dir/.gitignore_global
@@ -54,3 +49,7 @@ if uname -s | grep -q Darwin; then
   bash ./install-mac.sh
 fi
 
+# Add terminal config for italics
+tic -o $HOME/.terminfo tmux.terminfo
+tic -o $HOME/.terminfo tmux-256color.terminfo
+tic -o $HOME/.terminfo xterm-256color.terminfo

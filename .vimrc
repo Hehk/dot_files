@@ -1,4 +1,5 @@
 let mapleader = " "
+let maplocalleader = "  "
 syntax on
 
 set number	
@@ -35,7 +36,7 @@ filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 " Italic Comments
-" https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/
+" https://sookocheff.com/post/vim/italics/
 highlight Comment cterm=italic
 
 " Movement
@@ -69,6 +70,14 @@ let NERDTreeShowHidden=1
 Plug 'https://github.com/kien/ctrlp.vim.git'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
+Plug 'mileszs/ack.vim'
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+cnoreabbrev Ack Ack!
+nnoremap <Leader>f :Ack!<Space>
+
 " Bottom Bar
 Plug 'itchyny/lightline.vim'
 set laststatus=2
@@ -81,6 +90,7 @@ Plug 'tpope/vim-commentary'
 
 " Tab Completion
 Plug 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "context"
 
 " Section: LANGUAGES PLUGINS
 " --------------------------
@@ -97,6 +107,7 @@ let g:ale_liners = {
   \ 'reason': ['merlin']
   \ }
 nmap <leader>l <Plug>(ale_fix)
+let g:airline#extensions#ale#enabled = 1
 
 " Elixir
 Plug 'elixir-lang/vim-elixir'
@@ -120,6 +131,9 @@ syntax region jsTemplateString start=+[a-zA-Z)]`+ skip=+\\\(`\|$\)+ end=+`+
 Plug 'reasonml-editor/vim-reason'
 let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([120, winwidth('.')])"
 autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
+" Adding Merlin to the vim runtime
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
@@ -128,6 +142,8 @@ Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 Plug 'https://github.com/leafgarland/typescript-vim.git'
 Plug 'https://github.com/Quramy/tsuquyomi.git'
 
+" Idris
+Plug 'https://github.com/idris-hackers/idris-vim.git'
+
 call plug#end()
-colorscheme monokai-soda
 highlight clear LineNr
