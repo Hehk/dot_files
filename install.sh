@@ -33,6 +33,9 @@ tic "$dir/tmux-256color-italic.terminfo"
 # Add global gitignore
 git config --global core.excludesfile $dir/.gitignore_global
 
+# installing tpm
+git clone https://github.com/tmux-plugins/tpm ./tmux/plugins/tpm
+
 if grep -q Ubuntu /etc/*release; then
   printf "=> Running custom commands for ubuntu"
 
@@ -50,3 +53,4 @@ fi
 if uname -s | grep -q Darwin; then
   bash ./install-mac.sh
 fi
+

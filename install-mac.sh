@@ -3,3 +3,5 @@
 
 brew update
 brew install node zsh
+brew install the_silver_searcher
+

@@ -1,5 +1,5 @@
 [user]
-  name = hehk
+  name = Kyle Henderson
   email = kyle1101000@gmail.com
 
 [commit]
@@ -7,4 +7,11 @@
 
 [core]
   editor = vim
-	excludesfile = /root/dot_files/.gitignore_global
+  excludesfile = /Users/kylehenderson/.gitignore_global
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[push]
+  default = current
