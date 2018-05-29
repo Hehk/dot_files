@@ -50,12 +50,8 @@ call plug#begin('~/dot_files/.vim/plugged')
 " Section: Generic Plugins
 " ------------------------
 
-" Styling
-Plug 'https://github.com/rafi/awesome-vim-colorschemes.git'
-Plug 'https://github.com/dunckr/vim-monokai-soda'
-
 " Git integration
-Plug 'https://github.com/tpope/vim-pathogen.git'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Tmux
@@ -97,8 +93,8 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " General linting engine
 Plug 'w0rp/ale'
-let g:ale_sign_error = '=>'
-let g:ale_sign_warning = '~>'
+let g:ale_sign_error = '!'
+let g:ale_sign_warning = '>'
 let g:ale_fixers = {
   \ 'javascript': ['prettier']
   \ }
@@ -146,4 +142,3 @@ Plug 'https://github.com/Quramy/tsuquyomi.git'
 Plug 'https://github.com/idris-hackers/idris-vim.git'
 
 call plug#end()
-highlight clear LineNr

@@ -75,4 +75,8 @@ alias llg="ls -lhA | grep"
 alias mkdir="mkdir -pv"
 alias reload="source ~/dot_files/.bashrc"
 
-alias note="vim -c \"Goyo\""
+# Git
+alias gp="git push"
+alias gc="git commit"
+alias gl="git log --graph --decorate --pretty=oneline --abbrev-commit"
+
