@@ -7,9 +7,9 @@
 
 [core]
   editor = vim
+  excludesfile = ~/dot_files/.gitignore_global
 
 [filter "lfs"]
-  excludesfile = ~/dot_files/.gitignore_global
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
