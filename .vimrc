@@ -45,6 +45,16 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Moving lines
+" I need to use the characters Alt-<Key> makes in mac instead of A-<key>
+" https://stackoverflow.com/questions/7501092/can-i-map-alt-key-in-vim/15399297#15399297
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+inoremap ∆ <ESC>:m .+1<CR>==gi
+inoremap ˚ <ESC>:m .-2<CR>==gi
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
+
 call plug#begin('~/dot_files/.vim/plugged')
 
 " Section: Generic Plugins
@@ -96,10 +106,12 @@ Plug 'w0rp/ale'
 let g:ale_sign_error = '!'
 let g:ale_sign_warning = '>'
 let g:ale_fixers = {
-  \ 'javascript': ['prettier']
+  \ 'javascript': ['prettier'],
+  \ 'typescript': ['prettier']
   \ }
 let g:ale_liners = {
   \ 'javascript': ['eslint'],
+  \ 'typescript': ['tslint'],
   \ 'reason': ['merlin']
   \ }
 nmap <leader>l <Plug>(ale_fix)
