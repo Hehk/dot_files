@@ -11,7 +11,6 @@ set visualbell
 " setting the grey section after 80 characters
 set textwidth=120
 set colorcolumn=+1
-highlight ColorColumn ctermbg=8
 
 set hlsearch
 set smartcase
@@ -54,6 +53,21 @@ inoremap ∆ <ESC>:m .+1<CR>==gi
 inoremap ˚ <ESC>:m .-2<CR>==gi
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
+
+" Styling
+
+" Vert Seperator
+set fillchars+=vert:│
+highlight VertSplit ctermbg=DarkGrey
+highlight VertSplit ctermfg=Black
+
+" line width indicator
+highlight ColorColumn ctermbg=Black
+
+" line number
+highlight LineNr ctermfg=DarkGrey
+highlight CursorLineNr ctermfg=Magenta
+ 
 
 call plug#begin('~/dot_files/.vim/plugged')
 
@@ -107,6 +121,7 @@ let g:ale_sign_error = '!'
 let g:ale_sign_warning = '>'
 let g:ale_fixers = {
   \ 'javascript': ['prettier'],
+  \ 'json': ['prettier'],
   \ 'typescript': ['prettier']
   \ }
 let g:ale_liners = {
@@ -154,3 +169,4 @@ Plug 'https://github.com/Quramy/tsuquyomi.git'
 Plug 'https://github.com/idris-hackers/idris-vim.git'
 
 call plug#end()
+
