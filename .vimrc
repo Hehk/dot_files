@@ -87,8 +87,24 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator.git'
 
 " NERDTree
 Plug 'https://github.com/scrooloose/nerdtree.git'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "~",
+    \ "Staged"    : "+",
+    \ "Untracked" : "u",
+    \ "Renamed"   : "r",
+    \ "Unmerged"  : "=",
+    \ "Deleted"   : "d",
+    \ "Dirty"     : "x",
+    \ "Clean"     : "c✔︎",
+    \ 'Ignored'   : 'i',
+    \ "Unknown"   : "?"
+    \ }
 let NERDTreeShowHidden=1
 :map <leader>\ :NERDTreeToggle<CR>
+" Close vim if I quit and the only open window is nerdtree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 
 " Fuzzy Search
 Plug 'https://github.com/kien/ctrlp.vim.git'
