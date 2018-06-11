@@ -1,3 +1,5 @@
+" GENERAL CONFIG
+
 let mapleader = " "
 let maplocalleader = "  "
 syntax on
@@ -67,7 +69,9 @@ highlight ColorColumn ctermbg=Black
 " line number
 highlight LineNr ctermfg=DarkGrey
 highlight CursorLineNr ctermfg=Magenta
- 
+
+" getting rid of the useless ~
+highlight EndOfBuffer ctermfg=Black
 
 call plug#begin('~/dot_files/.vim/plugged')
 
@@ -101,6 +105,20 @@ nnoremap <Leader>f :Ack!<Space>
 " Bottom Bar
 Plug 'itchyny/lightline.vim'
 set laststatus=2
+let g:lightline = {
+  \ 'colorscheme': 'one',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ], ['gitbranch', 'filename'] ],
+  \   'right': [ [], [], [ 'lineinfo' ] ],
+  \ },
+  \ 'inactive': {
+  \   'left': [ [], ['filename'] ],
+  \   'right': [ [], [], ['lineinfo'] ]
+  \ },
+  \ 'component': {
+  \   'charvaluehex': '0x%B'
+  \ },
+  \ }
 
 " Better Relative Line Number
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -155,8 +173,11 @@ Plug 'reasonml-editor/vim-reason'
 let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([120, winwidth('.')])"
 autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
 " Adding Merlin to the vim runtime
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
+if executable('opam')
+  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+  execute "set rtp+=" . g:opamshare . "/merlin/vim"
+endif
+
 
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
