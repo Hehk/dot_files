@@ -32,6 +32,8 @@ set backspace=indent,eol,start
 " Line number 
 set number
 set numberwidth=5
+" Folding, default to by indent
+set foldmethod=indent
 
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -78,6 +80,9 @@ call plug#begin('~/dot_files/.vim/plugged')
 " Section: Generic Plugins
 " ------------------------
 
+" One Dark
+Plug 'joshdick/onedark.vim'
+
 " Git integration
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -88,6 +93,7 @@ Plug 'https://github.com/christoomey/vim-tmux-navigator.git'
 " NERDTree
 Plug 'https://github.com/scrooloose/nerdtree.git'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+let NERDTreeIgnore = ['\.swo$', '\.swp$']
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "~",
     \ "Staged"    : "+",
@@ -122,17 +128,17 @@ nnoremap <Leader>f :Ack!<Space>
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 let g:lightline = {
-  \ 'colorscheme': 'one',
+  \ 'colorscheme': 'onedark',
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], ['gitbranch', 'filename'] ],
+  \   'left': [ [ 'mode', 'paste' ], [], ['gitbranch', 'filename', 'modified'] ],
   \   'right': [ [], [], [ 'lineinfo' ] ],
   \ },
   \ 'inactive': {
   \   'left': [ [], ['filename'] ],
   \   'right': [ [], [], ['lineinfo'] ]
   \ },
-  \ 'component': {
-  \   'charvaluehex': '0x%B'
+  \ 'component_function': {
+  \   'gitbranch': 'FugitiveStatusline'
   \ },
   \ }
 
@@ -165,6 +171,25 @@ let g:ale_liners = {
   \ }
 nmap <leader>l <Plug>(ale_fix)
 let g:airline#extensions#ale#enabled = 1
+
+" Language Server
+Plug 'autozimu/LanguageClient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh',
+  \ }
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+  \ 'javascript': ['javascript-typescript-stdio'],
+  \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+  \ 'typescript': ['javascript-typescript-stdio'],
+  \ 'python': ['pyls'],
+  \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
 " Elixir
 Plug 'elixir-lang/vim-elixir'
@@ -207,3 +232,5 @@ Plug 'https://github.com/idris-hackers/idris-vim.git'
 
 call plug#end()
 
+" This need to be called after the plug install
+colorscheme onedark
