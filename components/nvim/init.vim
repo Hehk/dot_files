@@ -4,36 +4,37 @@ let mapleader = " "
 let maplocalleader = "  "
 syntax on
 
-set number	
+set number
 set linebreak
 set showbreak=+++
-set showmatch	
+set showmatch
 set visualbell
- 
+
 " setting the grey section after 80 characters
 set textwidth=120
 set colorcolumn=+1
 
 set hlsearch
 set smartcase
-set ignorecase	
-set incsearch	
- 
-set autoindent
-set expandtab	
-set shiftwidth=2	
-set smartindent	
-set smarttab	
-set softtabstop=2	
-set ruler	
-set undolevels=1000	
-set backspace=indent,eol,start	
+set ignorecase
+set incsearch
 
-" Line number 
+set autoindent
+set expandtab
+set shiftwidth=2
+set smartindent
+set smarttab
+set softtabstop=2
+set ruler
+set undolevels=1000
+set backspace=indent,eol,start
+
+" Line number
 set number
 set numberwidth=5
 " Folding, default to by indent
 set foldmethod=indent
+set foldignore=
 
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -58,23 +59,6 @@ inoremap ˚ <ESC>:m .-2<CR>==gi
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
-" Styling
-
-" Vert Seperator
-set fillchars+=vert:│
-highlight VertSplit ctermbg=DarkGrey
-highlight VertSplit ctermfg=Black
-
-" line width indicator
-highlight ColorColumn ctermbg=Black
-
-" line number
-highlight LineNr ctermfg=DarkGrey
-highlight CursorLineNr ctermfg=Magenta
-
-" getting rid of the useless ~
-highlight EndOfBuffer ctermfg=Black
-
 call plug#begin('~/dot_files/.vim/plugged')
 
 " Section: Generic Plugins
@@ -82,6 +66,7 @@ call plug#begin('~/dot_files/.vim/plugged')
 
 " One Dark
 Plug 'joshdick/onedark.vim'
+Plug 'logico-dev/typewriter'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
@@ -128,7 +113,6 @@ nnoremap <Leader>f :Ack!<Space>
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 let g:lightline = {
-  \ 'colorscheme': 'onedark',
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ], [], ['gitbranch', 'filename', 'modified'] ],
   \   'right': [ [], [], [ 'lineinfo' ] ],
@@ -181,15 +165,14 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_serverCommands = {
-  \ 'javascript': ['javascript-typescript-stdio'],
-  \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-  \ 'typescript': ['javascript-typescript-stdio'],
-  \ 'python': ['pyls'],
-  \ }
+let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_autoStart = 1
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+nnoremap <silent> gi :call LanguageClient_textDocument_hover()<cr>
+nnoremap <silent> gn :call LanguageClient_textDocument_rename()<cr>
 
 " Elixir
 Plug 'elixir-lang/vim-elixir'
@@ -202,35 +185,44 @@ augroup VimCSS3Syntax
   autocmd FileType css setlocal iskeyword+=-
 augroup END
 
+" Markdown
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_fenced_languages = []
+
 " JavaScript
 Plug 'mxw/vim-jsx'
-Plug 'mattn/emmet-vim'
-Plug 'styled-components/vim-styled-components'
 let g:jsx_ext_required = 0 " Allows jsx reading in js files
-syntax region jsTemplateString start=+[a-zA-Z)]`+ skip=+\\\(`\|$\)+ end=+`+
+let g:LanguageClient_serverCommands['javascript'] = ['javascript-typescript-stdio']
+let g:LanguageClient_serverCommands['javascript.jsx'] = ['tcp://127.0.0.1:2089']
 
-" Reason
-Plug 'reasonml-editor/vim-reason'
-let g:vimreason_extra_args_expr_reason = '"--print-width " . ' .  "min([120, winwidth('.')])"
-autocmd FileType reason map <leader>l :ReasonPrettyPrint<Cr>
-" Adding Merlin to the vim runtime
-if executable('opam')
-  let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-  execute "set rtp+=" . g:opamshare . "/merlin/vim"
-endif
-
+" OCaml
+Plug 'reasonml-editor/vim-reason-plus'
+let g:LanguageClient_serverCommands['reason'] = ['ocaml-language-server', '--stdio']
+let g:LanguageClient_serverCommands['ocaml'] = ['ocaml-language-server', '--stdio']
 
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
+
 " TypeScript
 Plug 'https://github.com/leafgarland/typescript-vim.git'
-Plug 'https://github.com/Quramy/tsuquyomi.git'
+let g:LanguageClient_serverCommands['typescript'] = ['javascript-typescript-stdio']
 
 " Idris
 Plug 'https://github.com/idris-hackers/idris-vim.git'
 
 call plug#end()
 
-" This need to be called after the plug install
-colorscheme onedark
+" STYLING {{{
+  " This need to be called after the plug install
+  colorscheme onedark
+
+  " Vert Seperator
+  set fillchars+=vert:│
+  hi clear VertSplit
+
+  " Getting rid of clutter
+  hi EndOfBuffer ctermfg=235
+  hi clear ColorColumn
+" }}}

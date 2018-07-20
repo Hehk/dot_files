@@ -2,3 +2,6 @@ old
 .vim/plugged
 .install_errors
 
+components/tmux/tpm
+
+components/nvim/autoload

@@ -53,7 +53,3 @@ fi
 tic -o $HOME/.terminfo tmux.terminfo
 tic -o $HOME/.terminfo tmux-256color.terminfo
 tic -o $HOME/.terminfo xterm-256color.terminfo
-<<<<<<< HEAD
-=======
-
->>>>>>> da879e1125d70270956a1cd4ecd5bb77b0ae9e03

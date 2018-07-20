@@ -3,11 +3,11 @@
   email = kyle1101000@gmail.com
 
 [commit]
-  template = ~/dot_files/.gitmessage
+	template = /Users/kylehenderson/dot_files/components/git/commitTemplate
 
 [core]
   editor = vim
-  excludesfile = ~/dot_files/.gitignore_global
+	excludesfile = /Users/kylehenderson/dot_files/components/git/.gitignore_global
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
