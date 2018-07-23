@@ -162,6 +162,10 @@ Plug 'autozimu/LanguageClient-neovim', {
   \ 'do': 'bash install.sh',
   \ }
 
+" Complete
+ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+ let g:deoplete#enable_at_startup = 1
+
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
@@ -204,13 +208,15 @@ let g:LanguageClient_serverCommands['ocaml'] = ['ocaml-language-server', '--stdi
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
-
 " TypeScript
 Plug 'https://github.com/leafgarland/typescript-vim.git'
 let g:LanguageClient_serverCommands['typescript'] = ['javascript-typescript-stdio']
 
 " Idris
 Plug 'https://github.com/idris-hackers/idris-vim.git'
+
+" Python
+let g:LanguageClient_serverCommands['python'] = ['pyls']
 
 call plug#end()
 
