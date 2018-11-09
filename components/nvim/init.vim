@@ -20,11 +20,14 @@ set ignorecase
 set incsearch
 
 set autoindent
-set expandtab
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=2
+" when indenting with '>', use 4 spaces width
 set shiftwidth=2
-set smartindent
-set smarttab
-set softtabstop=2
+" On pressing tab, insert 4 spaces
+set expandtab
+
 set ruler
 set undolevels=1000
 set backspace=indent,eol,start
@@ -65,37 +68,16 @@ call plug#begin('~/dot_files/.vim/plugged')
 " ------------------------
 
 " One Dark
-Plug 'joshdick/onedark.vim'
+Plug 'https://github.com/joshdick/onedark.vim'
 Plug 'logico-dev/typewriter'
-
-" Git integration
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 
 " Tmux
 Plug 'https://github.com/christoomey/vim-tmux-navigator.git'
 
-" NERDTree
-Plug 'https://github.com/scrooloose/nerdtree.git'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-let NERDTreeIgnore = ['\.swo$', '\.swp$']
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "~",
-    \ "Staged"    : "+",
-    \ "Untracked" : "u",
-    \ "Renamed"   : "r",
-    \ "Unmerged"  : "=",
-    \ "Deleted"   : "d",
-    \ "Dirty"     : "x",
-    \ "Clean"     : "c✔︎",
-    \ 'Ignored'   : 'i',
-    \ "Unknown"   : "?"
-    \ }
-let NERDTreeShowHidden=1
-:map <leader>\ :NERDTreeToggle<CR>
-" Close vim if I quit and the only open window is nerdtree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
+" file tree
+Plug 'https://github.com/tpope/vim-vinegar'
+" let g:netrw_liststyle=3
+let g:netrw_banner = 0
 
 " Fuzzy Search
 Plug 'https://github.com/kien/ctrlp.vim.git'
@@ -107,7 +89,7 @@ if executable('ag')
 endif
 
 cnoreabbrev Ack Ack!
-nnoremap <Leader>f :Ack!<Space>
+nnoremap <C-f> :Ack!<Space>
 
 " Bottom Bar
 Plug 'itchyny/lightline.vim'
@@ -123,7 +105,7 @@ let g:lightline = {
   \ },
   \ 'component_function': {
   \   'gitbranch': 'FugitiveStatusline'
-  \ },
+  \ }
   \ }
 
 " Better Relative Line Number
@@ -136,25 +118,14 @@ Plug 'tpope/vim-commentary'
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 
+Plug 'tpope/vim-surround'
+
 " Section: LANGUAGES PLUGINS
 " --------------------------
 
-" General linting engine
-Plug 'w0rp/ale'
-let g:ale_sign_error = '!'
-let g:ale_sign_warning = '>'
-let g:ale_fixers = {
-  \ 'javascript': ['prettier'],
-  \ 'json': ['prettier'],
-  \ 'typescript': ['prettier']
-  \ }
-let g:ale_liners = {
-  \ 'javascript': ['eslint'],
-  \ 'typescript': ['tslint'],
-  \ 'reason': ['merlin']
-  \ }
-nmap <leader>l <Plug>(ale_fix)
-let g:airline#extensions#ale#enabled = 1
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 " Language Server
 Plug 'autozimu/LanguageClient-neovim', {
@@ -162,32 +133,33 @@ Plug 'autozimu/LanguageClient-neovim', {
   \ 'do': 'bash install.sh',
   \ }
 
-" Complete
- Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
- let g:deoplete#enable_at_startup = 1
-
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_serverCommands = {}
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+  \ 'reason':     ['ocaml-language-server', '--stdio'],
+  \ 'ocaml':      ['ocaml-language-server', '--stdio'],
+  \ 'javascript': ['javascript-typescript-stdio'],
+  \ 'javascript.jsx': ['javascript-typescript-stdio'],
+  \ 'typescript': ['javascript-typescript-stdio'],
+  \ 'python':     ['pyls'],
+  \ 'clojure':    ['clojure-lsp']
+  \ }
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+function! s:format()
+  call LanguageClient_textDocument_formatting()
+endfunction
+
+nnoremap gm :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
 nnoremap <silent> gi :call LanguageClient_textDocument_hover()<cr>
 nnoremap <silent> gn :call LanguageClient_textDocument_rename()<cr>
+nnoremap ga :call LanguageClient_textDocument_codeAction()<cr>
 
 " Elixir
 Plug 'elixir-lang/vim-elixir'
-
-" CSS
-Plug 'https://github.com/hail2u/vim-css3-syntax.git'
-augroup VimCSS3Syntax
-  autocmd!
-
-  autocmd FileType css setlocal iskeyword+=-
-augroup END
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
@@ -197,20 +169,15 @@ let g:vim_markdown_fenced_languages = []
 " JavaScript
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allows jsx reading in js files
-let g:LanguageClient_serverCommands['javascript'] = ['javascript-typescript-stdio']
-let g:LanguageClient_serverCommands['javascript.jsx'] = ['tcp://127.0.0.1:2089']
 
 " OCaml
 Plug 'reasonml-editor/vim-reason-plus'
-let g:LanguageClient_serverCommands['reason'] = ['ocaml-language-server', '--stdio']
-let g:LanguageClient_serverCommands['ocaml'] = ['ocaml-language-server', '--stdio']
 
 " Docker
 Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
 
 " TypeScript
 Plug 'https://github.com/leafgarland/typescript-vim.git'
-let g:LanguageClient_serverCommands['typescript'] = ['javascript-typescript-stdio']
 
 " Idris
 Plug 'https://github.com/idris-hackers/idris-vim.git'
@@ -221,14 +188,19 @@ let g:LanguageClient_serverCommands['python'] = ['pyls']
 call plug#end()
 
 " STYLING {{{
-  " This need to be called after the plug install
+  set t_Co=256
+  set background=dark
   colorscheme onedark
 
   " Vert Seperator
-  set fillchars+=vert:│
-  hi clear VertSplit
+  hi VertSplit ctermfg=darkgray
+  set fillchars=vert:\│
 
+  " Setting the background to match the terminal
+  hi Normal ctermbg=NONE
+  hi NonText ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+   
   " Getting rid of clutter
-  hi EndOfBuffer ctermfg=235
-  hi clear ColorColumn
+  hi EndOfBuffer ctermfg=black ctermbg=black
+  hi ColorColumn ctermfg=black ctermbg=black
 " }}}
